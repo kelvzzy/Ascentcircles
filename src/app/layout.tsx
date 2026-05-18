@@ -22,6 +22,14 @@ export const metadata: Metadata = {
   authors: [{ name: "The Ascent Circle" }],
   creator: "The Ascent Circle",
   publisher: "The Ascent Circle",
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/logo.svg', type: 'image/svg+xml' },
+    ],
+    apple: '/logo.png',
+    shortcut: '/favicon.ico',
+  },
   openGraph: {
     title: "The Ascent Circle - We Rise Together",
     description: "A global, inclusive movement built around nature, presence, and shared growth.",
