@@ -1,7 +1,18 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Static export for VPS hosting
+  output: 'export',
+  
+  // Disable image optimization for static export
+  images: {
+    unoptimized: true,
+  },
+  
+  // Add trailing slashes for better compatibility
+  trailingSlash: true,
+  
+  // React compiler
   reactCompiler: true,
 };
 

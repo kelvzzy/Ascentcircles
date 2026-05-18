@@ -1,26 +1,495 @@
-@import "tailwindcss";
+/* Import Fonts - Vintage aesthetic */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 
+  LEARNING: CSS Variables
+  - These are reusable values we can reference throughout our CSS
+  - Defined once, used everywhere
+  - Easy to update the entire color scheme
+*/
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Primary Colors - From Logo */
+  --forest: #1a3d3d;
+  --forest-light: #2d5555;
+  --forest-dark: #0f2828;
+  
+  /* Sunset/Sunrise Colors */
+  --sunset: #d97634;
+  --sunset-light: #e88a3f;
+  --sunset-lighter: #f5a855;
+  
+  /* Golden/Yellow */
+  --gold: #e8b968;
+  --gold-light: #f4d89f;
+  --gold-lighter: #fef5e7;
+  
+  /* Cream/Beige - Vintage paper feel */
+  --cream: #f5e6c8;
+  --cream-light: #fef5e7;
+  --cream-dark: #e8d9b8;
+  
+  /* Sage/Mountain Green */
+  --sage: #7a9b8e;
+  --sage-light: #8fae9d;
+  
+  /* Text Colors */
+  --text-dark: #2C2C2C;
+  --text-medium: #666666;
+  --text-light: #999999;
+  
+  /* Vintage accents */
+  --sepia: #704214;
+  --vintage-paper: #f4f1e8;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* 
+  LEARNING: CSS Reset
+  - Removes default browser styling
+  - Ensures consistent appearance across browsers
+  - box-sizing: border-box makes width/height calculations easier
+*/
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* 
+  LEARNING: Smooth Scrolling
+  - Makes anchor links scroll smoothly instead of jumping
+  - Better user experience
+*/
+html {
+  scroll-behavior: smooth;
+}
+
+/* 
+  LEARNING: Body Styling
+  - Sets default font and colors for entire page
+  - overflow-x: hidden prevents horizontal scrollbar
+*/
+body {
+  font-family: 'Lora', serif;
+  line-height: 1.7;
+  color: var(--text-dark);
+  background-color: var(--vintage-paper);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 
+  LEARNING: Typography Classes
+  - Reusable classes for consistent text styling
+  - font-headline: For big, bold titles
+  - font-body: For regular text
+*/
+.font-headline {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.font-body {
+  font-family: 'Lora', serif;
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+.font-sans {
+  font-family: 'Inter', sans-serif;
+}
+
+/* 
+  LEARNING: Vintage Text Effect
+  - Creates a classic, aged look
+  - text-shadow adds depth
+  - Subtle color variations
+*/
+.vintage-text {
+  color: var(--sepia);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 
+  LEARNING: Button System
+  - Consistent button styling across the site
+  - :hover changes appearance when mouse is over button
+  - :focus is for keyboard navigation (accessibility)
+  - transition makes changes smooth
+*/
+
+/* Primary Button - Main actions */
+.btn-primary {
+  padding: 1rem 2.5rem;
+  border-radius: 4px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  background-color: var(--sunset);
+  color: white;
+  border: 2px solid var(--sunset);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px rgba(217, 118, 52, 0.2);
+}
+
+.btn-primary:hover {
+  background-color: var(--sunset-light);
+  border-color: var(--sunset-light);
+  box-shadow: 0 6px 12px rgba(217, 118, 52, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn-primary:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(217, 118, 52, 0.2);
+}
+
+/* Secondary Button - Less important actions */
+.btn-secondary {
+  padding: 1rem 2.5rem;
+  border-radius: 4px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  background-color: var(--gold);
+  color: var(--forest);
+  border: 2px solid var(--gold);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px rgba(232, 185, 104, 0.2);
+}
+
+.btn-secondary:hover {
+  background-color: var(--gold-light);
+  border-color: var(--gold-light);
+  box-shadow: 0 6px 12px rgba(232, 185, 104, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Outline Button - Subtle actions */
+.btn-outline {
+  padding: 1rem 2.5rem;
+  border-radius: 4px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  background-color: transparent;
+  color: var(--forest);
+  border: 2px solid var(--forest);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-outline:hover {
+  background-color: var(--forest);
+  color: white;
+  box-shadow: 0 6px 12px rgba(26, 61, 61, 0.2);
+  transform: translateY(-2px);
+}
+
+/* 
+  LEARNING: Card System
+  - Reusable card components
+  - Consistent shadows and borders
+  - Hover effects for interactivity
+*/
+.card-vintage {
+  background-color: white;
+  border: 3px solid var(--cream-dark);
+  border-radius: 2px;
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.1),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  padding: 2rem;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.card-vintage::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.card-vintage:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    0 8px 16px rgba(0, 0, 0, 0.15),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  border-color: var(--gold);
+}
+
+/* 
+  LEARNING: Decorative Elements
+  - Adds vintage aesthetic
+  - ::before and ::after create pseudo-elements
+  - Used for decorative purposes without extra HTML
+*/
+.vintage-border {
+  position: relative;
+  padding: 3rem 2rem;
+}
+
+.vintage-border::before,
+.vintage-border::after {
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border: 2px solid var(--gold);
+}
+
+.vintage-border::before {
+  top: 0;
+  left: 0;
+  border-right: none;
+  border-bottom: none;
+}
+
+.vintage-border::after {
+  bottom: 0;
+  right: 0;
+  border-left: none;
+  border-top: none;
+}
+
+/* 
+  LEARNING: Screen Reader Only
+  - Hides content visually but keeps it for screen readers
+  - Important for accessibility
+  - Helps blind users navigate the site
+*/
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* 
+  LEARNING: Animations
+  - @keyframes defines the animation steps
+  - animation property applies it to elements
+  - Creates smooth, engaging motion
+*/
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* 
+  LEARNING: Custom Scrollbar
+  - Styles the browser scrollbar
+  - Matches our design aesthetic
+  - Only works in WebKit browsers (Chrome, Safari)
+*/
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cream-light);
+  border-left: 1px solid var(--cream-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--forest);
+  border-radius: 6px;
+  border: 2px solid var(--cream-light);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--forest-light);
+}
+
+/* 
+  LEARNING: Vintage Paper Texture
+  - Creates an aged paper effect
+  - Uses CSS gradients and noise
+  - Adds to nostalgic aesthetic
+*/
+.paper-texture {
+  background-color: var(--vintage-paper);
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.02) 2px,
+      rgba(0,0,0,0.02) 4px
+    );
+  position: relative;
+}
+
+.paper-texture::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* 
+  LEARNING: Section Dividers
+  - Creates visual separation between sections
+  - Uses decorative elements
+  - Enhances vintage aesthetic
+*/
+.section-divider {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--gold) 20%,
+    var(--gold) 80%,
+    transparent
+  );
+  margin: 4rem 0;
+  position: relative;
+}
+
+.section-divider::before {
+  content: '◆';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--vintage-paper);
+  padding: 0 1rem;
+  color: var(--gold);
+  font-size: 1.2rem;
+}
+
+/* 
+  LEARNING: Responsive Images
+  - max-width: 100% prevents images from overflowing
+  - height: auto maintains aspect ratio
+  - display: block removes extra space below images
+*/
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 
+  LEARNING: Focus Styles
+  - Shows which element is selected (keyboard navigation)
+  - Important for accessibility
+  - Helps users who can't use a mouse
+*/
+a:focus,
+button:focus,
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid var(--sunset);
+  outline-offset: 2px;
+}
+
+/* 
+  LEARNING: Selection Styling
+  - Changes how selected text looks
+  - Matches our brand colors
+  - Small detail that adds polish
+*/
+::selection {
+  background-color: var(--gold);
+  color: var(--forest);
+}
+
+::-moz-selection {
+  background-color: var(--gold);
+  color: var(--forest);
+}
+
+/* 
+  LEARNING: Print Styles
+  - Optimizes page for printing
+  - Removes unnecessary elements
+  - Ensures good readability on paper
+*/
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background: white;
+  }
+  
+  a {
+    text-decoration: underline;
+  }
 }
