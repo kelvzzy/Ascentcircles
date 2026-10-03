@@ -27,7 +27,6 @@ import Image from 'next/image';
  */
 const navLinks = [
   { label: 'Our Story', href: '#story' },
-  { label: 'Values', href: '#pillars' },
   { label: 'Experience', href: '#experience' },
   { label: 'Locations', href: '#global-map' },
   { label: 'Partners', href: '#partners' },
@@ -67,15 +66,22 @@ const Header = () => {
   }, []);
 
   /**
-   * LEARNING: Smooth Scroll Function
+   * LEARNING: Navigation Handler
    * 
-   * Scrolls to a section smoothly instead of jumping
+   * Handles both hash links (smooth scroll) and route links
    * Also closes mobile menu
    */
-  const scrollTo = (href: string) => {
+  const handleNavigation = (href: string) => {
     setMenuOpen(false);
-    const el = document.querySelector(href);
-    el?.scrollIntoView({ behavior: 'smooth' });
+    
+    // If it's a hash link, scroll smoothly
+    if (href.startsWith('#')) {
+      const el = document.querySelector(href);
+      el?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      // If it's a route link, navigate
+      window.location.href = href;
+    }
   };
 
   return (
@@ -121,7 +127,7 @@ const Header = () => {
           {navLinks.map((link) => (
             <button
               key={link.href}
-              onClick={() => scrollTo(link.href)}
+              onClick={() => handleNavigation(link.href)}
               className="text-white/90 hover:text-gold text-sm font-sans font-medium tracking-wide uppercase transition-colors duration-300 relative group"
             >
               {link.label}
@@ -132,7 +138,7 @@ const Header = () => {
           
           {/* CTA Button */}
           <button
-            onClick={() => scrollTo('#email-capture')}
+            onClick={() => handleNavigation('#email-capture')}
             className="bg-sunset hover:bg-sunset-light text-white px-6 py-2.5 text-sm font-sans font-semibold tracking-wide uppercase transition-all duration-300 hover:shadow-lg hover:shadow-sunset/30 hover:-translate-y-0.5 border-2 border-sunset hover:border-sunset-light"
           >
             Join the Circle
@@ -175,7 +181,7 @@ const Header = () => {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  onClick={() => scrollTo(link.href)}
+                  onClick={() => handleNavigation(link.href)}
                   className="text-white/90 hover:text-gold text-left text-base font-sans font-medium tracking-wide uppercase transition-colors duration-300 py-2 border-b border-white/10"
                 >
                   {link.label}
@@ -183,7 +189,7 @@ const Header = () => {
               ))}
               
               <button
-                onClick={() => scrollTo('#email-capture')}
+                onClick={() => handleNavigation('#email-capture')}
                 className="bg-sunset hover:bg-sunset-light text-white w-full py-3 font-sans font-semibold tracking-wide uppercase transition-all duration-300 mt-2"
               >
                 Join the Circle

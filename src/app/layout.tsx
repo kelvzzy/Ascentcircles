@@ -24,11 +24,14 @@ export const metadata: Metadata = {
   publisher: "The Ascent Circle",
   icons: {
     icon: [
-      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/logo.png', sizes: '32x32', type: 'image/png' },
+      { url: '/logo.png', sizes: '16x16', type: 'image/png' },
       { url: '/logo.svg', type: 'image/svg+xml' },
     ],
-    apple: '/logo.png',
-    shortcut: '/favicon.ico',
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+    shortcut: '/logo.png',
   },
   openGraph: {
     title: "The Ascent Circle - We Rise Together",

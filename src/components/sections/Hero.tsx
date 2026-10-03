@@ -40,10 +40,14 @@ const heroBackgrounds = [
 ];
 
 const Hero = () => {
-  // Randomly select a background image on load
-  const [bgImage] = useState(() => 
-    heroBackgrounds[Math.floor(Math.random() * heroBackgrounds.length)]
-  );
+  // Fix hydration mismatch by selecting background on client side only
+  const [bgImage, setBgImage] = useState(heroBackgrounds[0]); // Default to first image
+  
+  useEffect(() => {
+    // Select random image after component mounts (client-side only)
+    const randomImage = heroBackgrounds[Math.floor(Math.random() * heroBackgrounds.length)];
+    setBgImage(randomImage);
+  }, []);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
